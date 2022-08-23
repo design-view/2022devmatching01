@@ -1,5 +1,6 @@
-export default function Suggestoin({
+export default function Suggestion({
     $target,
+    onSelect,
     initialState
 }) {
     this.$element = document.createElement('div');
@@ -50,7 +51,15 @@ export default function Suggestoin({
                 selectedIndex: nextIndex
             })
         } else if (e.key === 'Enter') {
-            alert(fetchlist[this.state.selectedIndex])
+            onSelect(fetchlist[this.state.selectedIndex])
         }
+    })
+    this.$element.addEventListener('click',(e)=>{
+        const { fetchlist = [], selectedIndex } = this.state;
+        const { index } = e.target.dataset;
+        this.setState({
+            selectedIndex: Number(index)
+        })
+        onSelect(fetchlist[Number(index)]);
     })
 }
